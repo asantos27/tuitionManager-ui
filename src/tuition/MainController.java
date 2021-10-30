@@ -8,11 +8,6 @@ import javafx.scene.control.Label;
  * @author Daniel Flts, Alyssa Santos
  */
 public class MainController {
-    @FXML
-    private Label welcomeText;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    Roster roster = new Roster();
 }
