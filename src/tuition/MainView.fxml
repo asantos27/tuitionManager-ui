@@ -15,6 +15,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <top>
@@ -164,7 +166,25 @@
                     </content></Tab>
                 <Tab text="Process Tuition">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <HBox layoutX="58.0" layoutY="17.0" prefHeight="63.0" prefWidth="448.0">
+                                    <children>
+                                        <Label />
+                                        <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="124.0" text="Calculate Tuition" />
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="   Calculate tuition for all students in the roster" wrappingWidth="315.8562927246094" />
+                                    </children>
+                                </HBox>
+                                <VBox layoutX="57.0" layoutY="77.0" prefHeight="166.0" prefWidth="444.0">
+                                    <children>
+                                        <Label prefHeight="42.0" prefWidth="193.0" text="Print By:" />
+                                        <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="183.0" text="By current order in roster" />
+                                        <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" text="Student Names" />
+                                        <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" text="Last Payment Date" />
+                                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="Print" />
+                                    </children>
+                                </VBox>
+                            </children></AnchorPane>
                     </content>
                 </Tab>
             </tabs>
