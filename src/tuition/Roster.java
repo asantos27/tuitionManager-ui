@@ -105,16 +105,18 @@ public class Roster {
     /**
      * Prints the roster as is
      */
-    public void print() {
+    public String print() {
         if (this.size == 0) {
-            System.out.println("Student roster is empty!");
-        } else {
-            System.out.println("* list of students in the roster **");
-            for (int i = 0; i < this.size; i++) {
-                System.out.println(this.roster[i].toString());
-            }
-            System.out.println("* end of roster **");
+            return "Student roster is empty!";
         }
+        String str = "* list of students made payments ordered by payment date **";
+        str += "\n";
+        for (int i = 0; i < this.size; i++) {
+            str += this.roster[i].toString();
+            str += "\n";
+        }
+        str += "* end of roster **";
+        return str;
     }
 
     /**
@@ -135,30 +137,36 @@ public class Roster {
     /**
      * Prints the roster sorted by student names
      */
-    public void printByStudentName() {
+    public String printByStudentName() {
         if (this.size == 0) {
-            System.out.println("Student roster is empty!");
+            return "Student roster is empty!";
         }
         this.sortByLastName();
-        System.out.println("* list of students ordered by name **");
+        String str = "* list of students ordered by name **";
+        str += "\n";
         for (int i = 0; i < size; i++) {
-            System.out.println(this.roster[i].toString());
+            str += this.roster[i].toString();
+            str += "\n";
         }
-        System.out.println("* end of roster **");
+        str += "* end of roster **";
+        return str;
     }
 
 
     /**
      * Prints only the students who have made payments, ordered by the payment date
      */
-    public void printByPaymentDate() {
+    public String printByPaymentDate() {
         if (this.size == 0) {
-            System.out.println("Student roster is empty!");
+            return "Student roster is empty!";
         }
-        System.out.println("* list of students made payments ordered by payment date **");
+        String str = "* list of students made payments ordered by payment date **";
+        str += "\n";
         for (int i = 0; i < this.size; i++) {
-            System.out.println(this.roster[i].toString());
+            str += this.roster[i].toString();
+            str += "\n";
         }
-        System.out.println("* end of roster **");
+        str += "* end of roster **";
+        return str;
     }
 }
