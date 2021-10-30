@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
@@ -86,7 +87,7 @@
                                             <children>
                                                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0" text="Tuition Due" />
                                                 <Label prefHeight="27.0" prefWidth="29.0" text="       $" />
-                                                <TextField promptText="0.00" />
+                                                <TextField disable="true" promptText="0.00" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -95,7 +96,72 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Payments/Financial Aid" />
+                <Tab text="Payments/Financial Aid">
+                    <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <GridPane layoutX="3.0" layoutY="6.0" prefHeight="242.0" prefWidth="564.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="242.7738037109375" minWidth="10.0" prefWidth="132.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="432.0" minWidth="10.0" prefWidth="432.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="58.49766540527344" minHeight="10.0" prefHeight="32.047569274902344" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="59.54291534423828" minHeight="10.0" prefHeight="38.452430725097656" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="111.04057312011719" minHeight="10.0" prefHeight="30.547569274902344" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="134.21922302246094" minHeight="10.0" prefHeight="35.04756164550781" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="115.57415771484375" minHeight="10.0" prefHeight="40.36427307128906" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="115.57415771484375" minHeight="10.0" prefHeight="40.13572692871094" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label prefHeight="17.0" prefWidth="104.0" text="Name" />
+                                        <TextField prefHeight="28.0" prefWidth="432.0" GridPane.columnIndex="1" />
+                                        <Label prefHeight="17.0" prefWidth="122.0" text="Major" GridPane.rowIndex="1" />
+                                        <Label prefHeight="17.0" prefWidth="122.0" text="Status" GridPane.rowIndex="2" />
+                                        <HBox prefHeight="18.0" prefWidth="410.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <children>
+                                                <RadioButton mnemonicParsing="false" prefHeight="37.0" prefWidth="56.0" text="CS" />
+                                                <RadioButton mnemonicParsing="false" prefHeight="36.0" prefWidth="52.0" text="EE" />
+                                                <RadioButton mnemonicParsing="false" prefHeight="36.0" prefWidth="52.0" text="ME" />
+                                                <RadioButton mnemonicParsing="false" prefHeight="38.0" prefWidth="46.0" text="IT" />
+                                                <RadioButton mnemonicParsing="false" prefHeight="39.0" prefWidth="40.0" text="BA" />
+                                            </children>
+                                        </HBox>
+                                        <Label prefHeight="17.0" prefWidth="122.0" text="Amount" GridPane.rowIndex="3" />
+                                        <HBox prefHeight="41.0" prefWidth="427.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <children>
+                                                <RadioButton mnemonicParsing="false" prefHeight="28.0" prefWidth="103.0" text="Resident" />
+                                                <RadioButton mnemonicParsing="false" prefHeight="28.0" prefWidth="101.0" text="Non-Resident" />
+                                            </children>
+                                        </HBox>
+                                        <HBox prefHeight="42.0" prefWidth="432.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label prefHeight="51.0" prefWidth="41.0" text="           $" />
+                                                <TextField prefHeight="47.0" prefWidth="160.0" promptText="0.00" />
+                                            </children>
+                                        </HBox>
+                                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                            <children>
+                                                <RadioButton mnemonicParsing="false" prefHeight="33.0" prefWidth="104.0" text="Pay Tuition" />
+                                                <DatePicker prefHeight="27.0" prefWidth="186.0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                            <children>
+                                                <RadioButton mnemonicParsing="false" prefHeight="40.0" prefWidth="138.0" text="Add Financial Aid" />
+                                            </children>
+                                        </HBox>
+                                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                            <children>
+                                                <RadioButton mnemonicParsing="false" prefHeight="38.0" prefWidth="427.0" text="Set Student as Study Abroad" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content></Tab>
                 <Tab text="Process Tuition">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
