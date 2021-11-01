@@ -155,6 +155,45 @@ public class MainController {
     }
 
     /**
+     * Helper method to disable nonresident options
+     */
+    @FXML
+    void disableResidencyStatuses(ActionEvent event) {
+        if (residentButton.isSelected()) {
+            tristateButton.setDisable(true);
+            NYButton.setDisable(true);
+            CTButton.setDisable(true);
+            internationalButton.setDisable(true);
+            studyAbroadBox.setDisable(true);
+        }
+
+        if (nonResidentButton.isSelected()) {
+            tristateButton.setDisable(false);
+            NYButton.setDisable(false);
+            CTButton.setDisable(false);
+            internationalButton.setDisable(false);
+            studyAbroadBox.setDisable(true);
+        }
+
+        if (tristateButton.isSelected()) {
+            internationalButton.setSelected(false);
+            studyAbroadBox.setDisable(false);
+        }
+
+        if (internationalButton.isSelected()) {
+            studyAbroadBox.setDisable(false);
+            tristateButton.setSelected(false);
+            NYButton.setDisable(true);
+            CTButton.setDisable(true);
+        }
+
+        if (tristateButton.isSelected()) {
+            internationalButton.setSelected(false);
+            studyAbroadBox.setDisable(false);
+        }
+    }
+
+    /**
      * Method to give functionality to add student button
      * @param event
      */
