@@ -388,7 +388,47 @@ public class MainController {
 
     @FXML
     void setFinancialAidAmtHandler(ActionEvent event) {
+        if (name2.getText() == null || name2.getText().trim().isEmpty()) {
+            messageArea.appendText("Please enter a name.\n");
+            return;
+        }
 
+        if (finAidAmt.getText() == null || finAidAmt.getText().trim().isEmpty()) {
+            messageArea.appendText("Payment amount missing.\n");
+            return;
+        }
+
+        String[] profile = new String[] {name1.getText(), getMajor()};
+        Student student = new Student(profile);
+        if (!roster.isStudentAvailable(student)) {
+            messageArea.appendText("Student is not in the roster.\n");
+            return;
+        }
+
+        Double finAidAmountEntered = Double.parseDouble(finAidAmt.getText());
+        if ((finAidAmountEntered < 0 || finAidAmountEntered > 10000)) {
+            messageArea.appendText("Invalid amount. \n");
+            return;
+        }
+
+        Student enrolledStudent = roster.getStudent(student);
+        enrolledStudent.tuitionDue();
+        if (enrolledStudent.getCreditHours() < 12) {
+            messageArea.appendText("Parttime student doesn't qualify for the award. \n");
+            return;
+        }
+        if (!(enrolledStudent instanceof Resident)) {
+            messageArea.appendText("Not a resident student. \n");
+            return;
+        }
+
+        if (enrolledStudent.getFinancialAid() != 0) {
+            messageArea.appendText("Awarded once already. \n");
+            return;
+        }
+        enrolledStudent.setFinancialAid(finAidAmountEntered);
+        enrolledStudent.setTuition(enrolledStudent.getTuition() - enrolledStudent.getFinancialAid());
+        messageArea.appendText("Tuition updated. \n");
     }
 
     /**
