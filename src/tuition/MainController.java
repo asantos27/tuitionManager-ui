@@ -2,11 +2,7 @@ package tuition;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.text.DecimalFormat;
 
@@ -89,8 +85,8 @@ public class MainController {
     @FXML
     private TextField paymentAmount;
 
-//    @FXML
-//    private DatePicker paymentDate;
+    @FXML
+    private DatePicker paymentDate;
 
     @FXML
     private Button print;
@@ -330,6 +326,52 @@ public class MainController {
 
     }
 
+    @FXML
+    void payTuitionHandler(ActionEvent event) {
+        if (name2.getText() == null || name2.getText().trim().isEmpty()) {
+            messageArea.appendText("Please enter a name.\n");
+            return;
+        }
+
+        if (paymentAmount.getText() == null || paymentAmount.getText().trim().isEmpty()) {
+            messageArea.appendText("Payment amount missing.\n");
+            return;
+        }
+
+        String[] profile = new String[] {name1.getText(), getMajor()};
+        Student student = new Student(profile);
+        if (!roster.isStudentAvailable(student)) {
+            messageArea.appendText("Student is not in the roster.\n");
+            return;
+        }
+
+        Student enrolledStudent = roster.getStudent(student);
+        enrolledStudent.setLastPaymentAmount(Double.parseDouble(paymentAmount.getText()));
+        messageArea.appendText(String.valueOf(enrolledStudent.getLastPaymentAmount()) + "\n");
+
+        //check if date is valid
+        String tempDate = paymentDate.getValue().toString(); //YYYY-MM-DD
+        String month = tempDate.substring(5,7);
+        String day = tempDate.substring(8);
+        String year = tempDate.substring(0,4);
+
+        Date date = new Date(Integer.parseInt(month), Integer.parseInt(day), Integer.parseInt(year));
+        if (!date.isValid()) {
+            messageArea.appendText("Payment date invalid.\n");
+            return;
+        } else {
+            enrolledStudent.setLastPaymentDate(date);
+            messageArea.appendText("Date is valid. \n");
+        }
+
+       // Double paymentAmountEntered = Double.parseDouble(paymentAmount.getText());
+
+    }
+
+    @FXML
+    void setFinancialAidAmtHandler(ActionEvent event) {
+
+    }
 
     /**
      * Method to give functionality to printing in third tab
