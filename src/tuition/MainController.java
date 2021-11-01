@@ -254,10 +254,28 @@ public class MainController {
 
     }
 
+    /**
+     * Method to give functionality to remove student button
+     * @param event
+     */
     @FXML
     void removeStudent(ActionEvent event) {
+        String[] profile = new String[] {name1.getText(), getMajor()};
+
+        Student student = new Student(profile);
+        if (!(roster.isStudentAvailable(student))) {
+            messageArea.appendText("Student is not in the roster. \n");
+            System.out.println("Student is not in the roster.");
+        } else {
+            roster.remove(student);
+            messageArea.appendText("Student removed from the roster. \n");
+        }
     }
 
+    /**
+     * Method to calculate tuition for a single student
+     * @param event
+     */
     @FXML
     void calculateStudentTuition(ActionEvent event) {
         String[] profile = new String[] {name1.getText(), getMajor()};
@@ -313,6 +331,10 @@ public class MainController {
     }
 
 
+    /**
+     * Method to give functionality to printing in third tab
+     * @param event
+     */
     @FXML
     void print(ActionEvent event) {
         //temp just to test
