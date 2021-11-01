@@ -486,8 +486,13 @@ public class MainController {
      */
     @FXML
     void print(ActionEvent event) {
-        //temp just to test
-        messageArea.appendText(roster.print()+"\n");
+        if (currOrder.isSelected()) {
+            messageArea.appendText(roster.print() + "\n");
+        } else if (studentNames.isSelected()) {
+            messageArea.appendText(roster.printByStudentName() + "\n");
+        } else if (lastDate.isSelected()) {
+            messageArea.appendText(roster.printByPaymentDate() + "\n");
+        }
     }
 
 }
