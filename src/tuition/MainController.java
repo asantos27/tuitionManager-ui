@@ -326,6 +326,10 @@ public class MainController {
 
     }
 
+    /**
+     * Method to give functionality to making a payment
+     * @param event
+     */
     @FXML
     void payTuitionHandler(ActionEvent event) {
         if (name2.getText() == null || name2.getText().trim().isEmpty()) {
@@ -346,10 +350,14 @@ public class MainController {
         }
 
         Student enrolledStudent = roster.getStudent(student);
+        enrolledStudent.tuitionDue(); //calculate student's tuition
         enrolledStudent.setLastPaymentAmount(Double.parseDouble(paymentAmount.getText()));
-        messageArea.appendText(String.valueOf(enrolledStudent.getLastPaymentAmount()) + "\n");
 
         //check if date is valid
+        if (paymentDate.getValue() == null) {
+            messageArea.appendText("Payment date is missing.\n");
+            return;
+        }
         String tempDate = paymentDate.getValue().toString(); //YYYY-MM-DD
         String month = tempDate.substring(5,7);
         String day = tempDate.substring(8);
@@ -361,16 +369,36 @@ public class MainController {
             return;
         } else {
             enrolledStudent.setLastPaymentDate(date);
-            messageArea.appendText("Date is valid. \n");
         }
 
-       // Double paymentAmountEntered = Double.parseDouble(paymentAmount.getText());
-
+        Double paymentAmountEntered = Double.parseDouble(paymentAmount.getText());
+        if (paymentAmountEntered <= 0) {
+            messageArea.appendText("Invalid amount. \n");
+            return;
+        } else if (paymentAmountEntered > enrolledStudent.getTuition()) {
+            messageArea.appendText("Amount is greater than amount due. \n");
+            return;
+        } else {
+            enrolledStudent.setLastPaymentAmount(paymentAmountEntered);
+            enrolledStudent.setTuition(enrolledStudent.getTuition() - enrolledStudent.getLastPaymentAmount());
+            enrolledStudent.setTotalPayment(enrolledStudent.getLastPaymentAmount());
+            messageArea.appendText("Payment applied. \n");
+        }
     }
 
     @FXML
     void setFinancialAidAmtHandler(ActionEvent event) {
 
+    }
+
+    /**
+     * Method to add functionality to button that calculates tuition for all students in the roster
+     * @param event
+     */
+    @FXML
+    void calculateAllTuitions(ActionEvent event) {
+        roster.calculateTuitionOfEveryStudent();
+        messageArea.appendText("Calculation completed. \n");
     }
 
     /**
