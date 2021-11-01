@@ -8,6 +8,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.text.DecimalFormat;
+
 /**
  * This class --
  * @author Daniel Flts, Alyssa Santos
@@ -258,6 +260,55 @@ public class MainController {
 
     @FXML
     void calculateStudentTuition(ActionEvent event) {
+        String[] profile = new String[] {name1.getText(), getMajor()};
+        DecimalFormat df = new DecimalFormat("###,##0.00");
+
+        int credits = Integer.parseInt(validCredits.getText());
+        try {
+            if (credits < 0) {
+                messageArea.appendText("Credit hours cannot be negative.\n");
+                return;
+            } else if (credits < 3) {
+                messageArea.appendText("Minimum credit hours is 3.\n");
+                return;
+            } else if (credits > 24) {
+                messageArea.appendText("Credit hours exceed the maximum 24.\n");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            messageArea.appendText("Invalid credit hours.\n");
+            return;
+        }
+
+        if (residentButton.isSelected()) {
+            Resident resident = new Resident(profile);
+            resident.setCreditHours(credits);
+            resident.tuitionDue();
+            tuition.setText(String.valueOf(df.format(resident.getTuition())));
+
+        } else if (nonResidentButton.isSelected() && !(tristateButton.isSelected()) && !(internationalButton.isSelected())) {
+            NonResident nonResident = new NonResident(profile);
+            nonResident.setCreditHours(credits);
+            nonResident.tuitionDue();
+            tuition.setText(String.valueOf(df.format(nonResident.getTuition())));
+
+        } else if (nonResidentButton.isSelected() && tristateButton.isSelected() && !(internationalButton.isSelected())) {
+            TriState triState = new TriState(profile);
+            triState.setCreditHours(credits);
+            triState.tuitionDue();
+            tuition.setText(String.valueOf(df.format(triState.getTuition())));
+
+        } else if (nonResidentButton.isSelected() && !(tristateButton.isSelected()) && internationalButton.isSelected()) {
+            International internationalStudent = new International(profile);
+            internationalStudent.setCreditHours(credits);
+
+            if (studyAbroadBox.isSelected()) {
+                internationalStudent.setStudyAbroad(true);
+            }
+
+            internationalStudent.tuitionDue();
+            tuition.setText(String.valueOf(df.format(internationalStudent.getTuition())));
+        }
 
     }
 
