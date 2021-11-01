@@ -119,6 +119,9 @@ public class MainController {
     private Button tuitionDueButton;
 
     @FXML
+    private Button updateStudyAbroad;
+
+    @FXML
     private TextField validCredits;
 
     Roster roster = new Roster();
@@ -342,7 +345,7 @@ public class MainController {
             return;
         }
 
-        String[] profile = new String[] {name1.getText(), getMajor()};
+        String[] profile = new String[] {name2.getText(), getMajor()};
         Student student = new Student(profile);
         if (!roster.isStudentAvailable(student)) {
             messageArea.appendText("Student is not in the roster.\n");
@@ -386,6 +389,10 @@ public class MainController {
         }
     }
 
+    /**
+     * Method to give functionality to entering and updating financial aid
+     * @param event
+     */
     @FXML
     void setFinancialAidAmtHandler(ActionEvent event) {
         if (name2.getText() == null || name2.getText().trim().isEmpty()) {
@@ -398,7 +405,7 @@ public class MainController {
             return;
         }
 
-        String[] profile = new String[] {name1.getText(), getMajor()};
+        String[] profile = new String[] {name2.getText(), getMajor()};
         Student student = new Student(profile);
         if (!roster.isStudentAvailable(student)) {
             messageArea.appendText("Student is not in the roster.\n");
@@ -429,6 +436,38 @@ public class MainController {
         enrolledStudent.setFinancialAid(finAidAmountEntered);
         enrolledStudent.setTuition(enrolledStudent.getTuition() - enrolledStudent.getFinancialAid());
         messageArea.appendText("Tuition updated. \n");
+    }
+
+    /**
+     * Method to update international students' status to study abroad
+     * @param event
+     */
+    @FXML
+    void updateStudyAbroadStatus(ActionEvent event) {
+        if (name2.getText() == null || name2.getText().trim().isEmpty()) {
+            messageArea.appendText("Please enter a name.\n");
+            return;
+        }
+
+        String[] profile = new String[] {name2.getText(), getMajor()};
+        International student = new International(profile);
+        if (!roster.isStudentAvailable(student)) {
+            messageArea.appendText("Couldn't find the international student. \n");
+            return;
+        }
+
+        Student enrolledStudent = roster.getStudent(student);
+        if (enrolledStudent instanceof International) {
+            if (enrolledStudent.getCreditHours() > 12) {
+                enrolledStudent.setCreditHours(12);
+            }
+            ((International) enrolledStudent).setStudyAbroad(true);
+            enrolledStudent.setTotalPayment(-enrolledStudent.getTotalPayment());
+            enrolledStudent.setLastPaymentAmount(0.0);
+            enrolledStudent.setLastPaymentDate(null);
+            enrolledStudent.tuitionDue();
+            messageArea.appendText("Tuition updated. \n");
+        }
     }
 
     /**
