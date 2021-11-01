@@ -109,7 +109,7 @@ public class Roster {
         if (this.size == 0) {
             return "Student roster is empty!";
         }
-        String str = "* list of students made payments ordered by payment date **";
+        String str = "* list of students in the roster **";
         str += "\n";
         for (int i = 0; i < this.size; i++) {
             str += this.roster[i].toString();

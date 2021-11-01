@@ -43,16 +43,16 @@
                                     </rowConstraints>
                                     <children>
                                         <Label prefHeight="18.0" prefWidth="119.0" text="Name" />
-                                        <TextField fx:id="name" prefHeight="5.0" prefWidth="411.0" GridPane.columnIndex="1" />
+                                        <TextField fx:id="name1" prefHeight="5.0" prefWidth="411.0" GridPane.columnIndex="1" />
                                         <Label prefHeight="17.0" prefWidth="122.0" text="Major" GridPane.rowIndex="1" />
                                         <Label prefHeight="17.0" prefWidth="126.0" text="Status" visible="false" GridPane.rowIndex="2" />
                                         <HBox prefHeight="18.0" prefWidth="410.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <children>
-                                                <RadioButton fx:id="majorCS" mnemonicParsing="false" prefHeight="37.0" prefWidth="56.0" text="CS" />
-                                                <RadioButton fx:id="majorEE" mnemonicParsing="false" prefHeight="36.0" prefWidth="52.0" text="EE" />
-                                                <RadioButton fx:id="majorME" mnemonicParsing="false" prefHeight="36.0" prefWidth="52.0" text="ME" />
-                                                <RadioButton fx:id="majorIT" mnemonicParsing="false" prefHeight="38.0" prefWidth="46.0" text="IT" />
-                                                <RadioButton fx:id="majorBA" mnemonicParsing="false" prefHeight="39.0" prefWidth="40.0" text="BA" />
+                                                <RadioButton fx:id="majorCS1" mnemonicParsing="false" onAction="#disableMajorOptions" prefHeight="37.0" prefWidth="56.0" text="CS" />
+                                                <RadioButton fx:id="majorEE1" mnemonicParsing="false" onAction="#disableMajorOptions" prefHeight="36.0" prefWidth="52.0" text="EE" />
+                                                <RadioButton fx:id="majorME1" mnemonicParsing="false" onAction="#disableMajorOptions" prefHeight="36.0" prefWidth="52.0" text="ME" />
+                                                <RadioButton fx:id="majorIT1" mnemonicParsing="false" onAction="#disableMajorOptions" prefHeight="38.0" prefWidth="46.0" text="IT" />
+                                                <RadioButton fx:id="majorBA1" mnemonicParsing="false" onAction="#disableMajorOptions" prefHeight="39.0" prefWidth="40.0" text="BA" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -81,8 +81,8 @@
                                         <TextField fx:id="validCredits" prefHeight="5.0" prefWidth="411.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                             <children>
-                                                <Button fx:id="addStudentButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Add Student" />
-                                                <Button fx:id="removeStudentButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="157.0" text="Remove Student" />
+                                                <Button fx:id="addStudentButton" mnemonicParsing="false" onAction="#addStudent" prefHeight="26.0" prefWidth="103.0" text="Add Student" />
+                                                <Button fx:id="removeStudentButton" mnemonicParsing="false" onAction="#removeStudent" prefHeight="26.0" prefWidth="157.0" text="Remove Student" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
@@ -188,6 +188,6 @@
         </TabPane>
     </top>
     <bottom>
-        <TextArea blendMode="SRC_ATOP" editable="false" prefHeight="164.0" prefWidth="601.0" BorderPane.alignment="CENTER" />
+        <TextArea fx:id="messageArea" blendMode="SRC_ATOP" editable="false" prefHeight="164.0" prefWidth="601.0" BorderPane.alignment="CENTER" />
     </bottom>
 </BorderPane>

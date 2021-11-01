@@ -69,8 +69,8 @@ public class Student {
      */
     public void setStudentProfile(String[] tokens) {
         studentProfile = new Profile();
-        studentProfile.setName(tokens[1]);
-        studentProfile.setMajor(toMajor(tokens[2]));
+        studentProfile.setName(tokens[0]);
+        studentProfile.setMajor(toMajor(tokens[1]));
     }
 
     /**
