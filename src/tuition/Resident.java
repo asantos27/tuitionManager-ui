@@ -1,5 +1,4 @@
 package tuition;
-import java.text.DecimalFormat;
 
 /**
  * This class is specifically used for students who reside in NJ.

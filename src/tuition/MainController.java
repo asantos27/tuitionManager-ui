@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import java.text.DecimalFormat;
 
 /**
- * This class --
+ * This class gives functionality to the UI in GUI
  * @author Daniel Flts, Alyssa Santos
  */
 public class MainController {
@@ -204,8 +204,9 @@ public class MainController {
             return;
         }
 
-        int credits = Integer.parseInt(validCredits.getText());
+
         try {
+            int credits = Integer.parseInt(validCredits.getText());
             if (credits < 0) {
                 messageArea.appendText("Credit hours cannot be negative.\n");
                 return;
@@ -216,7 +217,7 @@ public class MainController {
                 messageArea.appendText("Credit hours exceed the maximum 24.\n");
                 return;
             }
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             messageArea.appendText("Invalid credit hours.\n");
             return;
         }
@@ -226,7 +227,7 @@ public class MainController {
         if (residentButton.isSelected()) {
             Resident resident = new Resident(profile);
             resident.setResidencyStatus("resident");
-            resident.setCreditHours(credits);
+            resident.setCreditHours(Integer.parseInt(validCredits.getText()));
 
             if (roster.isStudentAvailable(resident)) {
                 messageArea.appendText("Student is already in the roster. \n");
@@ -239,7 +240,7 @@ public class MainController {
         } else if (nonResidentButton.isSelected() && !(tristateButton.isSelected()) && !(internationalButton.isSelected())) { //nonresident student but not a tristate student
             NonResident nonresident = new NonResident(profile);
             nonresident.setResidencyStatus("nonresident");
-            nonresident.setCreditHours(credits);
+            nonresident.setCreditHours(Integer.parseInt(validCredits.getText()));
 
             if (roster.isStudentAvailable(nonresident)) {
                 messageArea.appendText("Student is already in the roster. \n");
@@ -252,7 +253,7 @@ public class MainController {
         } else if (nonResidentButton.isSelected() && tristateButton.isSelected() && !(internationalButton.isSelected())) { //tristate student
             TriState tristate = new TriState(profile);
             tristate.setResidencyStatus("tristate");
-            tristate.setCreditHours(credits);
+            tristate.setCreditHours(Integer.parseInt(validCredits.getText()));
 
             if (NYButton.isSelected()) {
                 tristate.setState("NY");
@@ -271,7 +272,7 @@ public class MainController {
         } else if (nonResidentButton.isSelected() && !(tristateButton.isSelected()) && internationalButton.isSelected()) {
             International internationalStudent = new International(profile);
             internationalStudent.setResidencyStatus("international");
-            internationalStudent.setCreditHours(credits);
+            internationalStudent.setCreditHours(Integer.parseInt(validCredits.getText()));
 
             if (studyAbroadBox.isSelected()) {
                 internationalStudent.setStudyAbroad(true);
@@ -319,8 +320,8 @@ public class MainController {
         String[] profile = new String[] {name1.getText(), getMajor()};
         DecimalFormat df = new DecimalFormat("###,##0.00");
 
-        int credits = Integer.parseInt(validCredits.getText());
         try {
+            int credits = Integer.parseInt(validCredits.getText());
             if (credits < 0) {
                 messageArea.appendText("Credit hours cannot be negative.\n");
                 return;
@@ -338,25 +339,25 @@ public class MainController {
 
         if (residentButton.isSelected()) {
             Resident resident = new Resident(profile);
-            resident.setCreditHours(credits);
+            resident.setCreditHours(Integer.parseInt(validCredits.getText()));
             resident.tuitionDue();
             tuition.setText(String.valueOf(df.format(resident.getTuition())));
 
         } else if (nonResidentButton.isSelected() && !(tristateButton.isSelected()) && !(internationalButton.isSelected())) {
             NonResident nonResident = new NonResident(profile);
-            nonResident.setCreditHours(credits);
+            nonResident.setCreditHours(Integer.parseInt(validCredits.getText()));
             nonResident.tuitionDue();
             tuition.setText(String.valueOf(df.format(nonResident.getTuition())));
 
         } else if (nonResidentButton.isSelected() && tristateButton.isSelected() && !(internationalButton.isSelected())) {
             TriState triState = new TriState(profile);
-            triState.setCreditHours(credits);
+            triState.setCreditHours(Integer.parseInt(validCredits.getText()));
             triState.tuitionDue();
             tuition.setText(String.valueOf(df.format(triState.getTuition())));
 
         } else if (nonResidentButton.isSelected() && !(tristateButton.isSelected()) && internationalButton.isSelected()) {
             International internationalStudent = new International(profile);
-            internationalStudent.setCreditHours(credits);
+            internationalStudent.setCreditHours(Integer.parseInt(validCredits.getText()));
 
             if (studyAbroadBox.isSelected()) {
                 internationalStudent.setStudyAbroad(true);
@@ -393,7 +394,13 @@ public class MainController {
 
         Student enrolledStudent = roster.getStudent(student);
         enrolledStudent.tuitionDue(); //calculate student's tuition
-        enrolledStudent.setLastPaymentAmount(Double.parseDouble(paymentAmount.getText()));
+
+        try {
+            enrolledStudent.setLastPaymentAmount(Double.parseDouble(paymentAmount.getText()));
+        } catch (NumberFormatException e) {
+            messageArea.appendText("Invalid payment.\n");
+            return;
+        }
 
         //check if date is valid
         if (paymentDate.getValue() == null) {
@@ -414,6 +421,7 @@ public class MainController {
         }
 
         Double paymentAmountEntered = Double.parseDouble(paymentAmount.getText());
+
         if (paymentAmountEntered <= 0) {
             messageArea.appendText("Invalid amount. \n");
             return;
@@ -451,8 +459,14 @@ public class MainController {
             return;
         }
 
-        Double finAidAmountEntered = Double.parseDouble(finAidAmt.getText());
-        if ((finAidAmountEntered < 0 || finAidAmountEntered > 10000)) {
+        try {
+            Double finAidAmountEntered = Double.parseDouble(finAidAmt.getText());
+        } catch (NumberFormatException e) {
+            messageArea.appendText("Invalid amount.\n");
+            return;
+        }
+
+        if ((Double.parseDouble(finAidAmt.getText()) < 0 || Double.parseDouble(finAidAmt.getText()) > 10000)) {
             messageArea.appendText("Invalid amount. \n");
             return;
         }
@@ -472,7 +486,7 @@ public class MainController {
             messageArea.appendText("Awarded once already. \n");
             return;
         }
-        enrolledStudent.setFinancialAid(finAidAmountEntered);
+        enrolledStudent.setFinancialAid(Double.parseDouble(finAidAmt.getText()));
         enrolledStudent.setTuition(enrolledStudent.getTuition() - enrolledStudent.getFinancialAid());
         messageArea.appendText("Tuition updated. \n");
     }
